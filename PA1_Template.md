@@ -17,7 +17,8 @@ Technical Details :
 Below we will go through the code snippets that together constitute the exploratory analysis alogorithm here. The same is avaibale in activity_monitor.R code in the github repo - *"https://github.com/nithsubr/RepData_PeerAssessment1"*"
 
 Before we start, let us define a funtion that calculates the mean and is used inside our main algorithm :
-```{r Funtions to Get Mean}
+
+```r
 get_mean <- function(x, data_func, measure)
 {
 
@@ -46,15 +47,14 @@ if(!is.na(mean(dataset, na.rm = TRUE)))
 return(mean_set)
 
 }
-
 ```
 
 Below is the code that generates the exploratory graphics:
 
 1. Loading and preprocessing the data
 
-```{r Getting Data into R}
-  
+
+```r
   # Load the Libraries
   library(ggplot2)
   library(gridExtra)
@@ -84,8 +84,8 @@ As you can see, here
 
 2. Plot#1 - **"total number of steps taken per day (keeping the NA values)"**
 
-```{r Plot 1 - steps taken per day (keeping the NA values)}
-  
+
+```r
   # Read the data and format it
   data <- read.csv(fname, stringsAsFactors = FALSE)
   
@@ -109,7 +109,6 @@ As you can see, here
     geom_hline(aes(yintercept = mean(Steps, na.rm = TRUE), color = paste("Mean = ", round(mean(Steps, na.rm = TRUE),2))), data = total_raw, show_guide = TRUE) + 
     geom_hline(aes(yintercept = median(Steps, na.rm = TRUE), color = paste("Median = ", round(median(Steps, na.rm = TRUE),2))), data = total_raw,  show_guide = TRUE) + 
     guides(colour = guide_legend("Summary"))
-  
 ```
 
 Here we - 
@@ -122,8 +121,8 @@ Here we -
 
 3. Plot#2 - **"total number of steps taken per day (removing the NA values)"**
 
-```{r Plot 2 - steps taken per day (removing the NA values)}
-  
+
+```r
   # Find the total number of NAs
   invalid <- nrow(data[!is.na(data$steps), ])
   
@@ -160,8 +159,13 @@ Here we -
                  guides(colour = guide_legend("Summary"))
   
   grid.arrange(gplot0, gplot1, nrow = 2, ncol=1)
+```
 
 ```
+## Warning: Removed 8 rows containing missing values (position_stack).
+```
+
+![plot of chunk Plot 2 - steps taken per day (removing the NA values)](figure/Plot 2 - steps taken per day (removing the NA values)-1.png) 
 
 Here we are - 
  - Getting the data in required format
@@ -172,8 +176,8 @@ Here we are -
 
 
 4. Plot#3 - **"average daily activity pattern"**
-```{r Plot 3 - "average daily activity pattern"}
 
+```r
   # Get the data and process it to remove the NAs. NAs are replaced by mean of total number of steps aggregated for the specific interval
   data_int <- data[ , -2]
   
@@ -203,7 +207,6 @@ Here we are -
                  ylab("Avg. #of Steps/Intv.") + labs(title = "Average daily activity pattern") +
                  theme(plot.title = element_text(size = 14, face = "bold", colour = "brown")) +
                  guides(colour = guide_legend("Max. Average"))
-
 ```
 
 Here we are - 
@@ -214,8 +217,8 @@ Here we are -
 
 
 5. Plot#4 - **"differences in activity patterns between weekdays and weekends"** 
-```{r Plot 4 - activity patterns between weekdays and weekends}
-  
+
+```r
   # Get the data and process it to remove the NAs. NAs are replaced by mean of total number of steps aggregated for the specific interval
   data_wkd <- data
   
@@ -254,11 +257,18 @@ Here we are -
                  
   
   grid.arrange(gplot2, gplot3, nrow = 2, ncol=1)
-  
+```
+
+![plot of chunk Plot 4 - activity patterns between weekdays and weekends](figure/Plot 4 - activity patterns between weekdays and weekends-1.png) 
+
+```r
   # Print out the number of NAs removed on the console
   print(paste("Total Number of NAs replaced with appropriate values = ", invalid, sep = ""))
-  
-```  
+```
+
+```
+## [1] "Total Number of NAs replaced with appropriate values = 15264"
+```
 
 Here we are - 
  - Getting the data in required format
