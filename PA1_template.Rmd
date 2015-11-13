@@ -379,6 +379,9 @@ Let us try to make use of the Principle Component Analysis technique to identify
   fit <- kmeans(average, 5, nstart = 100)
   clusplot(average, fit$cluster, color = TRUE, shade = TRUE, main = "Clustering the Number of steps using PCA")
 ```
+&nbsp; 
+
+We have divided the Activity Levels into 5 Clusters. Below are the Cluster Centers (Means)
 ```{r}
  
   cent <- fit$centers
