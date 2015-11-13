@@ -167,6 +167,9 @@ Let us try to make use of the Principle Component Analysis technique to identify
 &nbsp; 
 
 ![plot of chunk Clustering Analysis - PCA](figure/Clustering Analysis - PCA-1.png) 
+&nbsp; 
+
+We have divided the Activity Levels into 5 Clusters. Below are the Cluster Centers (Means)
 
 | Interval | Steps |
 |:--------:|:-----:|
