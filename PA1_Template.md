@@ -126,6 +126,9 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
 ![plot of chunk Plot 3 - average daily activity pattern](figure/Plot 3 - average daily activity pattern-1.png) 
 &nbsp; 
 
+The green smoother line indicates that the activity levels start at a very low value, peak at the range of intervals 800 to 900 and then declining to another low. 
+&nbsp; 
+
 **Some generic observations that can be made about the Activity Pattern based on intervals is that - **
 
 - *There are several peaks and crests but the most predominant one is in the range of 800 - 900 or 8.00 AM to 9.00 AM*
@@ -151,7 +154,9 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
 
 - *The mean activity over the weekdays (35.61) is lesser than the mean activity during the weekends (42.37)*
 
-- *The activities over the weekends are more spread out with occassional peaks and valleys. But there is a stark peak of activities over the weekdays between 800 to 900 or in other words 8.00 AM to 9.00 AM*
+- *There is a stark peak of activities over the weekdays between 800 to 900 or in other words 8.00 AM to 9.00 AM*
+
+- *Referring to the green smoothers, The peak activity on the weekdays is in the morning time, whereas the peak over the weekends shifts more towards the later part*
 
 - *Quite obviously the activities reduce in the later part of the day. But on weekends this reduction in activities is post 2000 or 8.00 PM whereas on weekdays it is a bit earlier at approax 1800 or 6.00 PM*
 
@@ -167,6 +172,7 @@ Let us try to make use of the Principle Component Analysis technique to identify
 &nbsp; 
 
 ![plot of chunk Clustering Analysis - PCA](figure/Clustering Analysis - PCA-1.png) 
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png) 
 &nbsp; 
 
 We have divided the Activity Levels into 5 Clusters. Below are the Cluster Centers (Means)
@@ -182,7 +188,7 @@ We have divided the Activity Levels into 5 Clusters. Below are the Cluster Cente
 &nbsp; 
 
 We can see that the highest activity intervals are centered around 8.00 AM (approx) followed by intervals centered around 5.00 PM (approx)
-The Lowest activity interval is centered around 2.00 AM (approx).. probably the sleeping time
+The Lowest activity interval is centered around 2.00 AM (approx).
 
 &nbsp; 
 
