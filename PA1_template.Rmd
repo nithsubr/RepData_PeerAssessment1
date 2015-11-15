@@ -278,6 +278,7 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
   gplot2 <- g2 + geom_line() + 
                  geom_point(data = max_cord, aes(x = Interval, y = Steps, colour = paste("Max Value: Interval = ", round(Interval,2), ", #Steps = " ,round(Steps,2))), size = 4, show_guide = TRUE) + 
                  geom_hline(aes(yintercept = mean(Steps), color = paste("Mean = ", round(mean(Steps),2))), data = average, show_guide = TRUE) + 
+                 geom_smooth(se = FALSE, color="green") +
                  ylab("Avg. #of Steps/Intv.") + labs(title = "Average daily activity pattern") +
                  theme(plot.title = element_text(size = 14, face = "bold", colour = "brown")) +
                  guides(colour = guide_legend("Summary"))
@@ -285,6 +286,9 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
   print(gplot2)
 
 ```
+&nbsp; 
+
+The green smoother line indicates that the activity levels start at a very low value, peak at the range of intervals 800 to 900 and then declining to another low. 
 &nbsp; 
 
 **Some generic observations that can be made about the Activity Pattern based on intervals is that - **
@@ -341,6 +345,7 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
                  ylab("Avg. #of Steps/Intv.") + labs(title = "Activity patterns weekdays Vs weekends") +
                  theme(plot.title = element_text(size = 14, face = "bold", colour = "brown")) +
                  geom_hline(data = df, aes(yintercept = mean, color = paste(Wkd, " = ", round(mean,2))), show_guide = TRUE) + 
+                 geom_smooth(se = FALSE, color="green") +
                  guides(colour = guide_legend("Mean"))
                  
   
@@ -355,7 +360,9 @@ For Example, if we encounter and NA on a date 01/10/2012 and Interval = 5, then 
 
 - *The mean activity over the weekdays (`r mean_weekdays`) is lesser than the mean activity during the weekends (`r mean_weekends`)*
 
-- *The activities over the weekends are more spread out with occassional peaks and valleys. But there is a stark peak of activities over the weekdays between 800 to 900 or in other words 8.00 AM to 9.00 AM*
+- *There is a stark peak of activities over the weekdays between 800 to 900 or in other words 8.00 AM to 9.00 AM*
+
+- *Referring to the green smoothers, The peak activity on the weekdays is in the morning time, whereas the peak over the weekends shifts more towards the later part*
 
 - *Quite obviously the activities reduce in the later part of the day. But on weekends this reduction in activities is post 2000 or 8.00 PM whereas on weekdays it is a bit earlier at approax 1800 or 6.00 PM*
 
@@ -375,15 +382,20 @@ Let us try to make use of the Principle Component Analysis technique to identify
   library(cluster)
   library(xtable)
   library(knitr)
-
+  
+  set.seed(12345)
+  
   fit <- kmeans(average, 5, nstart = 100)
   clusplot(average, fit$cluster, color = TRUE, shade = TRUE, main = "Clustering the Number of steps using PCA")
+```
+```{r}
+  plot(average$Interval, average$Steps, pch = 19, col = fit$cluster, xlab = "Interval", ylab = "Average numer of Steps", main = "Activities per Cluster")
 ```
 &nbsp; 
 
 We have divided the Activity Levels into 5 Clusters. Below are the Cluster Centers (Means)
 ```{r}
- 
+  
   cent <- fit$centers
   names(cent) <- c("Interval", "Average Activity (Mean number of Steps)")
   cent <- cent[sort.list(cent[,2],decreasing = TRUE ), ]
@@ -394,7 +406,7 @@ We have divided the Activity Levels into 5 Clusters. Below are the Cluster Cente
 &nbsp; 
 
 We can see that the highest activity intervals are centered around 8.00 AM (approx) followed by intervals centered around 5.00 PM (approx)
-The Lowest activity interval is centered around 2.00 AM (approx).. probably the sleeping time
+The Lowest activity interval is centered around 2.00 AM (approx).
 
 &nbsp; 
 
